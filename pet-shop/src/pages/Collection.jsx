@@ -19,7 +19,7 @@ const Collection = () => {
   // Категорії для фільтрів
   const categories = ['cats', 'dogs', 'hamsters', 'Birds'];
   const subCategories = ['Сухий корм', 'Консерви', 'Ласощі', 'Іграшки', 'Вітаміни', 'Клітки', 'Наповнювачі'];
-  const brands = ['purina', 'luxury', 'royal canin', 'hills'];
+  const brands = ['purina', 'luxury', 'royal_canin', 'hills'];
 
   // Головний ефект для фільтрації та сортування
   useEffect(() => {
@@ -117,15 +117,18 @@ const Collection = () => {
             <div className='flex flex-col gap-2 text-sm text-gray-700'>
               {brands.map(brandItem => (
                 <label key={brandItem} className='flex items-center gap-2 capitalize'>
-                  <input 
-                    type="checkbox" 
-                    value={brandItem}
-                    checked={brand.includes(brandItem)}
-                    onChange={() => toggleFilter('brand', brandItem)}
-                    className='w-4 h-4'
-                  />
-                  {brandItem}
-                </label>
+                <input 
+                  type="checkbox" 
+                  value={brandItem}
+                  checked={brand.includes(brandItem)}
+                  onChange={() => toggleFilter('brand', brandItem)}
+                  className='w-4 h-4'
+                />
+                {brandItem
+                  .split('_') // Разделяем строку по "_"
+                  .map(word => word.charAt(0).toUpperCase() + word.slice(1)) // Делаем первую букву заглавной
+                  .join(' ')} {/* Объединяем слова с пробелами */}
+              </label>
               ))}
             </div>
           </div>
