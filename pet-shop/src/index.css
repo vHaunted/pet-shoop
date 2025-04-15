@@ -5,6 +5,9 @@
 a.active hr{
     display: block;
 }
+.preserve-whitespace {
+    white-space: pre-line;
+}
 
 button {
     border: rgb(238, 115, 0) 1px solid;

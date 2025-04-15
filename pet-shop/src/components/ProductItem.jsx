@@ -12,6 +12,7 @@ const ProductItem = ({_id,image,name,price}) => {
                 <img className='product_image' src={image[0]} alt="" />
             </div>
             <p className='pt-3 pb-1 text-sm'>{name}</p>
+            
             <p className='text-sm font-medium'>{currency}{price}</p>
         </Link>
   )

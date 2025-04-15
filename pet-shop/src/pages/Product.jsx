@@ -56,7 +56,7 @@ const Product = () => {
               <p className='pl-2 text-gray-500'>(9)</p>
           </div>
           <p className='mt-5 text-3xl font-medium'>{currency}{productData.price}</p>
-          <p className='mt-5 text-gray-600 md:w-4/5'>{productData.description}</p>
+          <p className='text-sm preserve-whitespace'>{productData.description}</p>
           
           {/* = Select Size = */}
           <div className='flex flex-col gap-4 my-8'>
