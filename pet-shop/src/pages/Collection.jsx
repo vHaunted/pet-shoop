@@ -3,23 +3,28 @@ import { ShopContext } from '../context/ShopContext'
 import { assets } from '../assets/assets'
 import ProductItem from '../components/ProductItem'
 
-const Collection = () => {
+const Collection = ({ defaultCategory }) => {
   const { products, search, showSearch } = useContext(ShopContext);
   const [showFilter, setShowFilter] = useState(false);
   const [showAllSections, setShowAllSections] = useState(false);
   const [filterProducts, setFilterProducts] = useState([]);
   
   // Стани для фільтрів
-  const [category, setCategory] = useState([]);
+  const [category, setCategory] = useState(defaultCategory ? [defaultCategory] : []);
   const [subCategory, setSubCategory] = useState([]);
   const [brand, setBrand] = useState([]);
   const [priceRange, setPriceRange] = useState({ min: '', max: '' });
   const [sortType, setSortType] = useState('relevant');
 
   // Категорії для фільтрів
-  const categories = ['cats', 'dogs', 'hamsters', 'Birds'];
-  const subCategories = ['Сухий корм', 'Консерви', 'Ласощі', 'Іграшки', 'Вітаміни', 'Клітки', 'Наповнювачі'];
-  const brands = ['purina', 'luxury', 'royal_canin', 'hills'];
+  const categories = ['cats', 'dogs', 'rodents', 'birds'];
+  const subCatTranslations = {
+    'dry_food': 'Сухий корм',
+    'conserve': 'Консерви',
+    'health': 'Здоров\'я'
+  };
+  const subCategories = ['dry_food', 'conserve', 'health'];
+  const brands = ['purina', 'royal_canin', 'hills'];
 
   // Головний ефект для фільтрації та сортування
   useEffect(() => {
@@ -38,7 +43,13 @@ const Collection = () => {
     }
 
     if (subCategory.length > 0) {
-      filtered = filtered.filter(item => subCategory.includes(item.subCategory));
+      filtered = filtered.filter(item => {
+        // Перевіряємо як масив так і рядок
+        const itemSubCats = Array.isArray(item.subCategory) 
+          ? item.subCategory 
+          : [item.subCategory];
+        return itemSubCats.some(sc => subCategory.includes(sc));
+      });
     }
 
     if (brand.length > 0) {
@@ -177,7 +188,7 @@ const Collection = () => {
                     onChange={() => toggleFilter('subCategory', subCat)}
                     className='w-4 h-4'
                   />
-                  {subCat}
+                  {subCatTranslations[subCat] || subCat}
                 </label>
               ))}
             </div>
@@ -251,7 +262,8 @@ const Collection = () => {
         </div>
       </div>
     </div>
-  )
-}
+      
+  );
+};
 
 export default Collection

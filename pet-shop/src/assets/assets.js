@@ -15,6 +15,7 @@ import dog_food_1 from './images/dog-products/dog-food/dog-food-1.jpg'
 import dog_food_2 from './images/dog-products/dog-food/dog-food-2.jpg'
 import dog_food_3 from './images/dog-products/dog-food/dog-food-3.jpg'
 import dog_food_4 from './images/dog-products/dog-food/dog-food-4.jpg'
+import hamster_food_1 from './images/hamster-products/hamster-food-1.jpg'
 
 import basket_icon from './images/icons/basket_icon.png'
 import add_icon_white from './images/icons/add_icon_white.png'
@@ -96,7 +97,7 @@ export const products = [
         price: 168,
         image: [cat_food_1, cat_food_1_2],
         category: "cats",
-        subCategory: "cat_food",
+        subCategory: "dry_food",
         brand: "royal_canin"
         // date: 1716634345448,
         // bestseller: true
@@ -108,7 +109,7 @@ export const products = [
         price: 149,
         image: [cat_food_2, cat_food_1_2],
         category: "cats",
-        subCategory: "cat_food",
+        subCategory: "dry_food",
         brand: "royal_canin"
     },
     {
@@ -118,7 +119,7 @@ export const products = [
         price: 100,
         image: [cat_food_3],
         category: "cats",
-        subCategory: "cat_food",
+        subCategory: "dry_food",
         brand: "royal_canin"
     },
     {
@@ -128,7 +129,7 @@ export const products = [
         price: 145,
         image: [cat_food_4],
         category: "cats",
-        subCategory: "cat_food",
+        subCategory: "dry_food",
         brand: "purina"
     },
     {
@@ -138,7 +139,7 @@ export const products = [
         price: 137,
         image: [dog_food_1],
         category: "dogs",
-        subCategory: "dog_food",
+        subCategory: "dry_food",
         brand: "royal_canin"
     },
     {
@@ -148,7 +149,7 @@ export const products = [
         price: 150,
         image: [dog_food_2],
         category: "dogs",
-        subCategory: "dog_food",
+        subCategory: "dry_food",
         brand: "royal_canin"
     },
     {
@@ -158,7 +159,7 @@ export const products = [
         price: 120,
         image: [dog_food_3],
         category: "dogs",
-        subCategory: "dog_food",
+        subCategory: "dry_food",
         brand: "purina"
     },
     {
@@ -168,7 +169,16 @@ export const products = [
         price: 130,
         image: [dog_food_4],
         category: "dogs",
-        subCategory: "dog_food",
+        subCategory: ["conserve", "health"],
         brand: "purina"
+    },
+    {
+        _id: "9",
+        name: "Beaphar Care Корм збалансований для морських свинок",
+        price: 982,
+        image: [hamster_food_1],
+        category: "rodents",
+        subCategory: "dry_food",
+        brand: "beaphar"
     }
 ]

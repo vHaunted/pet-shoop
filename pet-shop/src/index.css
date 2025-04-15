@@ -12,7 +12,7 @@ a.active hr{
 button {
     border: rgb(238, 115, 0) 1px solid;
     padding: 8px 28px;
-    border-radius: 20px;
+    border-radius: 15px;
     color: #49557e;
     transition: 0.3s;
 }
@@ -55,6 +55,7 @@ body{
    padding-right: 10px;
    color: #49557e;
    border-color: rgba(255, 145, 0, 0.473);
+   border-radius: 10px;
 }
 
 .dropdown_profile {

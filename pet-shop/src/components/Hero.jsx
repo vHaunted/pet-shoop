@@ -4,7 +4,7 @@ import { assets } from '../assets/assets';
 const Hero = () => {
   return (
     <div 
-      className='relative z-10 flex flex-col sm:flex-row border border-gray-400 min-h-[400px]'
+      className='relative z-0 flex flex-col sm:flex-row border border-gray-400 min-h-[400px] mt-4'
       style={{ 
         backgroundImage: `url(${assets.header})`,
         backgroundSize: 'cover',
@@ -20,8 +20,7 @@ const Hero = () => {
       {/* Hero left side */}
       <div className='relative z-10 w-full sm:w-1/2 flex sm:py-0'>
         <div className='text-[white] p-6 rounded-lg'>
-            {/* Make a fancy pretty font */}
-            <h1 className='text-3xl sm:py-3 lg:text-5xl leading-relaxed'>Найкраща якість для ваших улюленців!</h1>
+            <h1 className='text-3xl sm:py-3 lg:text-5xl leading-relaxed'>Найкраща якість для ваших улюбленців!</h1>
             <br />
             <button className='bg-orange-50 font-semibold'>Переглянути каталог</button>
         </div>
