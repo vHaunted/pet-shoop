@@ -16,8 +16,8 @@ const Footer = () => {
                 <p className='w-full text-gray-600'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis quia, at, labore similique provident amet minima repudiandae distinctio, ducimus delectus officia impedit consequatur facere pariatur. Animi nostrum harum dolore blanditiis.</p>
             </div>
 
-            <div className=''>
-                <p className='text-xl font-medium mb-5'>Щось тут</p>
+            <div className='ml-10'>
+                <p className='text-xl mb-5 font-[Prata]'>Щось тут</p>
                 <ul className='flex flex-col gap-1 text-gray-600'>
                     <li>Головна сторінка</li>
                     <li>Про нас</li>
@@ -29,7 +29,7 @@ const Footer = () => {
             </div>
 
             <div>
-                <p className='text-xl font-medium mb-5'>Контактна інформація</p>
+                <p className='text-xl mb-5 font-[Prata]'>Контактна інформація</p>
                 <ul className='flex flex-col gap-4 text-gray-600'>
                     <li className='flex items-center gap-2'>
                         <img className='w-[15px]' src={assets.telegram} alt="Telegram" />
@@ -43,7 +43,7 @@ const Footer = () => {
             </div>
 
             <div>
-                <p className='text-xl font-medium mb-5'>Ми в соцмережах</p>
+                <p className='text-xl mb-5 font-[Prata]'>Ми в соцмережах</p>
                 <ul className='flex flex-col gap-1 text-gray-600'>
                     <li className='flex items-center gap-2'>
                         <img className='w-[15px]' src={assets.telegram} alt="Telegram" />

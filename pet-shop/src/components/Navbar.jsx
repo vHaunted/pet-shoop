@@ -65,7 +65,7 @@ const Navbar = () => {
           <img 
             onClick={() => setVisible(true)} 
             src={assets.menu_burger} 
-            className='menu_burger' 
+            className=' icon_ menu_burger' 
             alt="Меню" 
           />
         </div>
