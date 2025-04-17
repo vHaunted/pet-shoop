@@ -33,28 +33,27 @@ const Navbar = () => {
         <Link to={'/'}><img src={assets.logo} className='w-64' alt="Логотип" /></Link> 
         <ul className='hidden sm:flex gap-5 text-sm text-gray-700'>
           <NavLink to='/' className='flex flex-col items-center gap-1'>
-            <p>Home</p>
+            <p>Головна сторінка</p>
             <hr className='w-2/4 border-none h-[1.5px] bg-gray-700 hidden' />
           </NavLink>
           <NavLink to='/collection' className='flex flex-col items-center gap-1'>
-            <p>Collection</p>
+            <p>Каталог</p>
             <hr className='w-2/4 border-none h-[1.5px] bg-gray-700 hidden' />
           </NavLink>
         </ul>
 
         <div className='flex items-center gap-6 cursor-pointer'>
           <img onClick={() => setShowSearch(true)} className='w-5 cursor-pointer' src={assets.search_icon} alt="" />
-          <button>Вхід</button>
           <Link to='/cart' className='relative'>
             <img src={assets.basket_icon} alt="Кошик" />
             <p className='absolute right-[-5px] bottom-[-5px] w-4 text-center leading-4 bg-black text-white aspect-square rounded-full text-[10px]'>{getCartCount()}</p>
           </Link>
           <div className='group relative'>
-            <img 
+            <Link to='/login'><img 
               src={assets.profile_icon} 
               alt="Профіль" 
               className="cursor-pointer" 
-            />
+            /></Link>
             <div className='absolute hidden group-hover:block right-0 top-full mt-1 z-50'>
               <div className='dropdown_profile'>
                 <p className='pb-2'>Мій профіль</p>
