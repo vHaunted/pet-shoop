@@ -88,3 +88,10 @@ body{
     border: 2px solid rgb(255, 230, 184);
     border-radius: 20px;
 }
+
+.order_input {
+    border: #49557e 1px solid;
+    border-radius: 10px;
+    padding: 6px;
+    background-color: white;
+}

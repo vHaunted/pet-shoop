@@ -1,9 +1,10 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { ShopContext } from '../context/ShopContext'
 import {assets} from '../assets/assets.js'
+import CartTotal from '../components/CartTotal.jsx';
 
 const Cart = () => {
-  const {products, currency, cartItems} = useContext(ShopContext);
+  const {products, currency, cartItems, updateQuantity, navigate} = useContext(ShopContext);
   const[cartData, setCartData] = useState([]);
 
   useEffect(()=>{
@@ -44,12 +45,21 @@ const Cart = () => {
                     </div>
                   </div>
                 </div>
-                <input className='border max-w-10 sm:max-w-20 px-1 sm:px-2 py-1' type="number" min={1} defaultValue={item.quantity} />
-                <img className='w-6 mr-4 sm:w-6 cursor-pointer' src={assets.delete_icon} alt="" />
+                <input onClick={(e)=>e.target.value==='' || e.target.value === '0' ? null : updateQuantity(item._id,  item.size, Number(e.target.value))} className='border max-w-10 sm:max-w-20 px-1 sm:px-2 py-1' type="number" min={1} defaultValue={item.quantity} />
+                <img onClick={()=>updateQuantity(item._id,item.size,0)} className='w-6 mr-4 sm:w-6 cursor-pointer' src={assets.delete_icon} alt="" />
               </div>
             )
           })
         }
+      </div>
+
+      <div className='flex justify-end my-20'>
+        <div className='w-full sm:w-[450px]'>
+          <CartTotal/>
+          <div className='w-full text-end'>
+            <button onClick={()=>navigate('/place-order')} className='mt-6'>Зробити замовлення</button>
+          </div>
+        </div>
       </div>
     </div>
   )

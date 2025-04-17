@@ -33,6 +33,9 @@ import angle_right from './images/icons/angle-right.png'
 import angle_left from './images/icons/angle-left.png'
 import star from './images/icons/star.png'
 import delete_icon from './images/icons/delete.png'
+import hand_money from './images/icons/expense.png'
+import credit_card from './images/icons/payroll-check.png'
+import credit_card_filled from './images/icons/payroll-check_filled.png'
 
 import twenty_four from './images/icons/time-twenty-four.png'
 import store_alt from './images/icons/store-alt.png'
@@ -86,7 +89,10 @@ export const assets = {
     back_1,
     back_2,
     star,
-    delete_icon
+    delete_icon,
+    hand_money,
+    credit_card,
+    credit_card_filled
 }
 
 export const products = [
