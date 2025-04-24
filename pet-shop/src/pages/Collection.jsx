@@ -2,19 +2,42 @@ import React, { useContext, useEffect, useState } from 'react'
 import { ShopContext } from '../context/ShopContext'
 import { assets } from '../assets/assets'
 import ProductItem from '../components/ProductItem'
+import { useSearchParams } from 'react-router-dom'
 
 const Collection = ({ defaultCategory }) => {
   const { products, search, showSearch } = useContext(ShopContext);
+  const [searchParams, setSearchParams] = useSearchParams();
   const [showFilter, setShowFilter] = useState(false);
   const [showAllSections, setShowAllSections] = useState(false);
   const [filterProducts, setFilterProducts] = useState([]);
   
+
+  const safeDecodeArray = (param) => {
+    try {
+      return param ? decodeURIComponent(param).split(',') : [];
+    } catch {
+      return [];
+    }
+  };
+  
   // Стани для фільтрів
-  const [category, setCategory] = useState(defaultCategory ? [defaultCategory] : []);
-  const [subCategory, setSubCategory] = useState([]);
-  const [brand, setBrand] = useState([]);
-  const [priceRange, setPriceRange] = useState({ min: '', max: '' });
-  const [sortType, setSortType] = useState('relevant');
+  const [category, setCategory] = useState(() => {
+    const urlCategory = searchParams.get('category');
+    return urlCategory ? [urlCategory] : (defaultCategory ? [defaultCategory] : []);
+  });
+  const [subCategory, setSubCategory] = useState(() => {
+    const urlSubCategory = searchParams.get('subcategory');
+    return urlSubCategory ? urlSubCategory.split(',') : [];
+  });
+  const [brand, setBrand] = useState(() => {
+    const urlBrand = searchParams.get('brand');
+    return urlBrand ? urlBrand.split(',') : [];
+  });
+  const [priceRange, setPriceRange] = useState(() => ({
+    min: searchParams.get('min_price') || '',
+    max: searchParams.get('max_price') || ''
+  }));
+  const [sortType, setSortType] = useState(searchParams.get('sort') || 'relevant');
 
   // Категорії для фільтрів
   const categories = ['cats', 'dogs', 'rodents', 'birds'];
@@ -82,6 +105,32 @@ const Collection = ({ defaultCategory }) => {
 
     setFilterProducts(sorted);
   }, [products, search, showSearch, category, subCategory, brand, priceRange, sortType]);
+
+  // Update URL when filters change
+  useEffect(() => {
+    const params = new URLSearchParams();
+    
+    if (category.length > 0) {
+      params.set('category', category.join(','));
+    }
+    if (subCategory.length > 0) {
+      params.set('subcategory', subCategory.join(','));
+    }
+    if (brand.length > 0) {
+      params.set('brand', brand.join(','));
+    }
+    if (priceRange.min) {
+      params.set('min_price', priceRange.min);
+    }
+    if (priceRange.max) {
+      params.set('max_price', priceRange.max);
+    }
+    if (sortType !== 'relevant') {
+      params.set('sort', sortType);
+    }
+
+    setSearchParams(params);
+  }, [category, subCategory, brand, priceRange, sortType, setSearchParams]);
 
   // Функції для фільтрації
   const toggleFilter = (filterType, value) => {

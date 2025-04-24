@@ -14,7 +14,7 @@ const CategoriesChoose = () => {
       </div>
       
       <div className='grid grid-cols-2 gap-4 sm:flex sm:flex-row sm:justify-evenly sm:gap-4 md:gap-8 p-4'>
-        <Link className='max-w-40 text-center' to='/collection'>
+        <Link className='max-w-40 text-center' to='/collection?category=cats'>
           <img 
             src={assets.category_cat} 
             alt="Для котів" 
@@ -22,7 +22,7 @@ const CategoriesChoose = () => {
           />
           <p className='text-[#49557e] mt-2 text-sm sm:text-base'>Котам</p>
         </Link>
-        <Link className='max-w-40 text-center' to='/collection'>
+        <Link className='max-w-40 text-center' to='/collection?category=dogs'>
           <img 
             src={assets.category_dog} 
             alt="Для собак" 
@@ -30,7 +30,7 @@ const CategoriesChoose = () => {
           />
           <p className='text-[#49557e] mt-2 text-sm sm:text-base'>Собакам</p>
         </Link>
-        <Link className='max-w-40 text-center' to='/collection'>
+        <Link className='max-w-40 text-center' to='/collection?category=rodents'>
           <img 
             src={assets.category_hamster} 
             alt="Для гризунів" 
@@ -38,7 +38,7 @@ const CategoriesChoose = () => {
           />
           <p className='text-[#49557e] mt-2 text-sm sm:text-base'>Гризунам</p>
         </Link>
-        <Link className='max-w-40 text-center' to='/collection'>
+        <Link className='max-w-40 text-center' to='/collection?category=birds'>
           <img 
             src={assets.category_bird} 
             alt="Для птахів" 
