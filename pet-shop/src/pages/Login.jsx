@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react'
 import { ShopContext } from '../context/ShopContext'
 
 const Login = () => {
-  const [currentState, setCurrentState] = useState('Sign Up');
+  const [currentState, setCurrentState] = useState('Зареєструватись');
   const onSubmitHandler = async (event) => {
     event.preventDefault
   }
@@ -13,9 +13,10 @@ const Login = () => {
         <h1 className='text-4xl'>{currentState}</h1>
         <hr className='border-none h-'/>
       </div>
-      {currentState === 'Login' ? '' : <input type="text" className='order_input w-[400px]' placeholder='Name' required/>}
-      <input type="text" className='order_input w-[400px]' placeholder='Email' required/>
-      <input type="password" className='order_input w-[400px]' placeholder='Password' required/>
+      {currentState === 'Увійти' ? '' : <input type="text" className='order_input w-[400px]' placeholder='Імʼя' required />}
+
+      <input type="text" className='order_input w-[400px]' placeholder='Адреса e-mail' required/>
+      <input type="password" className='order_input w-[400px]' placeholder='Пароль' required/>
       <div className='w-full flex justify-between text-sm mt-[-8px]'>
         <p className='cursor-pointer'>Забули пароль?</p>
         {
@@ -24,7 +25,10 @@ const Login = () => {
           : <p onClick={()=>setCurrentState('Login')} className='cursor-pointer'>Ввійти в акаунт</p>
         }
       </div>
-      <button className=''>{currentState === 'Login' ? 'Sign In' : 'Sign Up'}</button>
+      <button className=''>
+        {currentState === 'Login' ? 'Увійти' : 'Зареєструватися'}
+      </button>
+
     </form>
   )
 }

@@ -1,7 +1,7 @@
 import React, { useContext } from 'react'
 import { ShopContext } from '../context/ShopContext'
 
-const Orders = () => { // Перейменуйте компонент
+const Orders = () => { 
   const { products, currency } = useContext(ShopContext);
 
   // Перевірка наявності продуктів
@@ -54,4 +54,4 @@ const Orders = () => { // Перейменуйте компонент
   )
 }
 
-export default Orders // Змініть ім'я експорту
+export default Orders 

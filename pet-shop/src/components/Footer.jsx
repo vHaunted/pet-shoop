@@ -12,11 +12,11 @@ const Footer = () => {
         <div className='flex flex-col sm:grid grid-cols-[2fr_1fr_1fr_1fr] gap-6 my-10 text-sm sm:px-[9vw]'>
             <div>
                 <img className='mb-5 w-[150px]' src={assets.logo_2} alt="" />
-                <p className='w-full text-gray-600'>©2025-2025</p>
-                <p className='w-full text-gray-600'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis quia, at, labore similique provident amet minima repudiandae distinctio, ducimus delectus officia impedit consequatur facere pariatur. Animi nostrum harum dolore blanditiis.</p>
+                <p className='w-full text-gray-600'>©2024-2025</p>
+                <p className='w-full text-gray-600'>Тут можна написати типу цей сайт це наша проектна робота таких то студентва ну просто по приколу</p>
             </div>
 
-            <div className='ml-10'>
+            {/* <div className='ml-10'>
                 <p className='text-xl mb-5 font-[Prata]'>Щось тут</p>
                 <ul className='flex flex-col gap-1 text-gray-600'>
                     <li>Головна сторінка</li>
@@ -26,7 +26,7 @@ const Footer = () => {
                     <li>Приватність</li>
                     <li>Щось там</li>
                 </ul>
-            </div>
+            </div> */}
 
             <div>
                 <p className='text-xl mb-5 font-[Prata]'>Контактна інформація</p>

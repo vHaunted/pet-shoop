@@ -15,7 +15,7 @@ const LatestCollection = () => {
             <div className='text-center py-5 text-3xl'>
                 <h1>Новинки</h1>
                 <p className='text-[#49557e] w=3/4 m-auto text-xs sm:text-base '>
-                    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quos, non?
+                    Оцініть нові пропозиції:
                 </p>
             </div>
 

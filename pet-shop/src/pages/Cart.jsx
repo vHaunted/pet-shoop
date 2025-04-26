@@ -26,7 +26,7 @@ const Cart = () => {
   return (
     <div className='border-t pt-14'>
       <div className='text-2xl mb-3'>
-        <h1>Your cart</h1>
+        <h1>Ваша корзинка</h1>
       </div>
 
       <div >

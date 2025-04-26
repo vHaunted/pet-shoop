@@ -13,16 +13,16 @@ const PlaceOrder = () => {
       {/* === Left Side === */}
       <div className='flex flex-col gap-3 w-full sm:max-w-[480px]'>
         <div className='text-xl sm:text-2xl mb-3'>
-          <h1>Delivery Information</h1>
+          <h1>Введіть інформацію</h1>
         </div>
         
         <div className='flex gap-3'>
-          <input className='order_input flex-1' placeholder='First name'/>
-          <input className='order_input flex-1' placeholder='Last name'/>
+          <input className='order_input flex-1' placeholder='Імʼя'/>
+          <input className='order_input flex-1' placeholder='Прізвище'/>
         </div>
         
         <input className='order_input' placeholder='Email'/>
-        <input className='order_input' placeholder='Phone number'/>
+        <input className='order_input' placeholder='Номер телефону'/>
         
         <div className='flex gap-3'>
           <input className='order_input flex-1' placeholder='Область'/>
