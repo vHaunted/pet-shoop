@@ -20,13 +20,13 @@ const Login = () => {
       <div className='w-full flex justify-between text-sm mt-[-8px]'>
         <p className='cursor-pointer'>Забули пароль?</p>
         {
-          currentState === 'Login'
-          ? <p onClick={()=>setCurrentState('Sign Up')} className='cursor-pointer'>Створити акаунт</p>
-          : <p onClick={()=>setCurrentState('Login')} className='cursor-pointer'>Ввійти в акаунт</p>
+          currentState === 'Увійти'
+          ? <p onClick={()=>setCurrentState('Зареєструватись')} className='cursor-pointer'>Створити акаунт</p>
+          : <p onClick={()=>setCurrentState('Увійти')} className='cursor-pointer'>Ввійти в акаунт</p>
         }
       </div>
       <button className=''>
-        {currentState === 'Login' ? 'Увійти' : 'Зареєструватися'}
+        {currentState === 'Увійти' ? 'Увійти' : 'Зареєструватись'}
       </button>
 
     </form>

@@ -1,12 +1,39 @@
 import userModel from "../models/userModel.js"
+import bcrypt from "bcrypt"
+import jwr from 'jsonwebtoken'
 import validator from 'validator';
 
-// Route for User Login
-const loginUser = async(req, res) => {
-    res.json({msg:"Login API is Working"})
+const createToken = (_id) => {
+    return jwr.sign({_id}, process.env.JWT_SECRET)
 }
 
-// Route for User Register
+// Route for User LOGIN 
+const loginUser = async(req, res) => {
+    try {
+        const {email, password} = req.body;
+        const user = await userModel.findOne({email});
+       
+        // Check if User Exists
+        if(!user) {
+            return res.json({success:false, message:"Користувача не існує"})
+        }
+
+        // 
+        const isMatch = await bcrypt.compare(password, user.password);
+
+        if (isMatch){
+            const token = createToken(user._id);
+            res.json({success:true, token})
+        } else {
+            res.json({success:false, message: 'Неправильні дані'})
+        }
+    } catch (error) {
+        console.log(error);
+        res.json({success:false, message:error.message})
+    }
+}
+
+// Route for User REGISTER
 const registerUser = async(req, res) => {
     try {
         const{name, email, password} = req.body
@@ -21,18 +48,31 @@ const registerUser = async(req, res) => {
         if(!validator.isEmail(email)) {
             return res.json({success:false, message:"Неправильний e-mail"})
         }
-        if(password.lenght < 8) {
+        if(password.length < 8) {
             return res.json({success:false, message:"Пароль має містити 8 символів або більше"})
         }
 
+        // hashing user password
+        const salt = await bcrypt.genSalt(10)
+        const hashedPassword = await bcrypt.hash(password,salt)
 
+        const newUser = new userModel({
+            name,
+            email,
+            password:hashedPassword
+        })
 
-    } catch {
+        const user = await newUser.save()
+        const token = createToken(user._id)
 
+        res.json({success:true, token})
+    } catch (error) {
+        console.log(error);
+        res.json({success:false, message:error.message})
     }
 }
 
-// Route for Admin Panel
+// Route for ADMIN PANEL
 const adminLogin = async(req, res) => {
     res.json({msg:"Admin API is Working"})
 }
