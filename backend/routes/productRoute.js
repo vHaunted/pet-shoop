@@ -1,9 +1,10 @@
 import express from 'express';
 import upload from '../middleware/multer.js';
 import { addProduct, listProducts, removeProduct, singleProduct } from '../controllers/productController.js';
+import adminAuth from '../middleware/adminAuth.js';
 
 const productRouter = express.Router();
-  productRouter.post('/add', async (req, res, next) => {
+  productRouter.post('/add', adminAuth, async (req, res, next) => {
     try {
       upload.fields([
         { name: 'image1', maxCount: 1 },
@@ -20,8 +21,8 @@ const productRouter = express.Router();
       res.status(500).json({ error: error.message });
     }
 }, addProduct);
-productRouter.post('/remove',removeProduct);
+productRouter.post('/remove', adminAuth,removeProduct);
 productRouter.post('/single', singleProduct);
-productRouter.post('/list', listProducts);
+productRouter.get('/list', listProducts);
 
 export default productRouter;

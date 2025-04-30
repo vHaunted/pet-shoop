@@ -1,6 +1,6 @@
 import userModel from "../models/userModel.js"
 import bcrypt from "bcrypt"
-import jwr from 'jsonwebtoken'
+import jwt from 'jsonwebtoken'
 import validator from 'validator';
 
 const createToken = (_id) => {
@@ -74,7 +74,19 @@ const registerUser = async(req, res) => {
 
 // Route for ADMIN PANEL
 const adminLogin = async(req, res) => {
-    res.json({msg:"Admin API is Working"})
+    try {
+        const {email, password} = req.body
+
+        if(email === process.env.ADMIN_EMAIL && password === process.env.ADMIN_PASSWORD) {
+            const token = jwt.sign(email+password, process.env.JWT_SECRET);
+            res.json({success:true, token})
+        } else {
+            res.json({success:false, message:"Неправильні дані"})
+        }
+    } catch (error) {
+        console.log(error);
+        res.json({success:false, message:error.message})
+    }
 }
 
 export {loginUser, registerUser, adminLogin}
