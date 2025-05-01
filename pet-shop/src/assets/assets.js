@@ -18,15 +18,8 @@ import dog_food_4 from './images/dog-products/dog-food-4.jpg'
 import hamster_food_1 from './images/hamster-products/hamster-food-1.jpg'
 
 import basket_icon from './images/icons/basket_icon.png'
-import add_icon_white from './images/icons/add_icon_white.png'
-import add_icon_green from './images/icons/add_icon_green.png'
-import remove_icon_red from './images/icons/remove_icon_red.png'
-import cross_icon from './images/icons/cross_icon.png'
-import rating_starts from './images/icons/rating_starts.png'
+import cross_icon from './images/icons/close.png'
 import profile_icon from './images/icons/profile_icon.png'
-import bag_icon from './images/icons/bag_icon.png'
-import logout_icon from './images/icons/logout_icon.png'
-import parcel_icon from './images/icons/parcel_icon.png'
 import search_icon from './images/icons/search_icon.png'
 import menu_burger from './images/icons/menu-burger.png'
 import angle_right from './images/icons/angle-right.png'
@@ -57,15 +50,8 @@ export const assets = {
     logo,
     logo_2,
     basket_icon,
-    add_icon_white,
-    add_icon_green,
-    remove_icon_red,
     cross_icon,
-    rating_starts,
     profile_icon,
-    bag_icon,
-    logout_icon,
-    parcel_icon,
     search_icon,
     menu_burger,
     angle_right,

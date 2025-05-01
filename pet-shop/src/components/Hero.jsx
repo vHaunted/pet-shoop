@@ -21,8 +21,6 @@ const Hero = () => {
       <div className='relative z-10 w-full sm:w-1/2 flex sm:py-0'>
         <div className='text-[white] p-6 rounded-lg'>
             <h1 className='text-3xl sm:py-3 lg:text-5xl leading-relaxed'>Найкраща якість для ваших улюбленців!</h1>
-            <br />
-            <button className='bg-orange-50 font-semibold'>Переглянути каталог</button>
         </div>
       </div>
     </div>

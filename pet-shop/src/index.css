@@ -11,6 +11,9 @@
  @import url('https://fonts.googleapis.com/css2?family=Prata&display=swap');
 /* font-family: "Prata", serif; 
  */
+@import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@300..700&family=Prata&display=swap');
+
+
 a.active hr{
     display: block;
 }
@@ -32,8 +35,9 @@ button:hover{
 }
 
 body{
-    background-color: rgb(255, 255, 248);
+    /* background-color: rgb(255, 255, 248); */
 }
+
 
 h1 {
     font-family: "Prata", serif;
