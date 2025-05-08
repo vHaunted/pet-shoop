@@ -9,7 +9,7 @@ const Footer = () => {
         }}>
 
         {/* Content block */}
-        <div className='flex flex-col sm:grid grid-cols-[2fr_1fr_1fr_1fr] gap-6 my-10 text-sm sm:px-[9vw]'>
+        <div className='flex flex-col sm:grid grid-cols-[2fr_1fr_1fr] gap-6 my-10 text-sm sm:px-[9vw]'>
             <div>
                 <img className='mb-5 w-[150px]' src={assets.logo_2} alt="" />
                 <p className='w-full text-gray-600'>©2024-2025</p>

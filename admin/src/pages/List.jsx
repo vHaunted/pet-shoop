@@ -62,48 +62,48 @@ const List = ({ token }) => {
 
   return (
     <>
-      <p className='mb-2'>Список усіх продуктів</p>
+      <p className='mb-2 font-extrabold'>Список усіх продуктів</p>
       <div className='flex flex-col gap-2'>
 
         {/* Products Table Title */}
-        <div className='hidden md:grid grid-cols-[1fr_2fr_1fr_1fr_1fr_1fr] items-center py-1 px-2 border bg-gray-100 text-sm'>
-          <b>Зобр.</b>
+        <div className='hidden md:grid grid-cols-[1fr_2fr_1fr_1fr_1fr_1fr_1fr] items-center py-1 px-2 border border-stone-300 rounded bg-gray-100 text-sm'>
+          <b className='text-center'>Зобр.</b>
           <b>Назва</b>
-          <b>Категорія</b>
-          <b>Підкатегорія</b>
-          <b>Ціна</b>
+          <b className='text-center'>Категорія</b>
+          <b className='text-center'>Підкатегорія</b>
+          <b className='text-center'>Бренд</b>
+          <b className='text-center'>Ціна</b>
           <b className='text-center'>Action</b>
         </div>
 
         {/* Product List */}
         {list.length > 0 ? (
           list.map((item) => (
-            <div key={item._id} className='grid grid-cols-[1fr_2fr_1fr_1fr_1fr_1fr] items-center py-1 px-2 border'>
+            <div key={item._id} className='grid grid-cols-[1fr_2fr_1fr_1fr_1fr_1fr_1fr] items-center py-1 px-2 border border-stone-300'>
               <img 
-                src={item.images?.[0] || assets.placeholder}  // Беремо перше зображення з масиву
+                src={item.images?.[0] || assets.placeholder}
                 alt={item.name} 
-                className='w-15 h-20 object-cover'
+                className='w-15 h-20 object-cover m-auto'
                 onError={(e) => {
-                  e.target.src = assets.placeholder; // Запасний варіант
-                  console.error("Не вдалося завантажити:", item.images?.[0]); // Для діагностики
-                }}
-              />
-              <p>{item.name}</p>
-              <p>{item.category}</p>
-              <p>{item.subCategory}</p>
-              <p>{currency}{item.price}</p>
-              <div className="flex justify-center">
-                <button 
-                  onClick={() => handleDeleteClick(item)}
-                >
-                  <img className='w-6' src={assets.trash} alt="" />
-                </button>
-              </div>
-            </div>
-          ))
-        ) : (
-          <p>Немає продуктів для відображення</p>
-        )}
+                    e.target.src = assets.placeholder;
+                    console.error("Не вдалося завантажити:", item.images?.[0]);
+                  }}
+      />
+      <p>{item.name}</p>
+      <p className='text-center'>{item.category}</p>
+      <p className='text-center'>{item.subCategory}</p>
+      <p className='text-center'>{item.brand}</p>
+      <p className='text-center'>{currency}{item.price}</p>
+      <div className="flex justify-center">
+        <button onClick={() => handleDeleteClick(item)}>
+          <img className='w-6' src={assets.trash} alt="Видалити" />
+        </button>
+      </div>
+    </div>
+  ))
+) : (
+  <p>Немає продуктів для відображення</p>
+)}
 
         {/* Confirm Delete === === === */}
         {productToDelete && (

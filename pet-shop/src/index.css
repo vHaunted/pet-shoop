@@ -38,14 +38,6 @@ h1 {
     font-weight: 500;
 }
 
-.icon_ {
-    filter: brightness(0) invert(30%) sepia(100%) saturate(200%) hue-rotate(180deg);
-}
-
-.menu_burger {
-    width: 35px;
-}
-
 .dropdown_angle_left {
     width: 35px;
 }

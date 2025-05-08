@@ -21,11 +21,17 @@ const LatestCollection = () => {
 
             {/* Rendering PRODUCTS */}
             <div className='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 gap-y-6'>
-                {
-                    LatestProducts.map((item, index)=>(
-                        <ProductItem key={index} id={item._id} image={item.image} name={item.name} price={item.price}/>
-                    ))
-                }
+            {
+            LatestProducts.map((item, index) => (
+                <ProductItem 
+                    key={index} 
+                    _id={item._id} 
+                    image={item.images?.[0]} // Змінити item.image на item.images?.[0]
+                    name={item.name} 
+                    price={item.price}
+                    />
+                ))
+            }
             </div>
         </div>
   )

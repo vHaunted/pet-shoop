@@ -24,29 +24,23 @@ const Navbar = () => {
         </ul>
 
         <div className='flex items-center gap-6 cursor-pointer'>
-          <img onClick={() => setShowSearch(true)} className='w-5 cursor-pointer' src={assets.search_icon} alt="" />
+          <img onClick={() => setShowSearch(true)} className='w-8 cursor-pointer' src={assets.search_icon} alt="" />
           <Link to='/cart' className='relative'>
-            <img src={assets.basket_icon} alt="Кошик" />
+            <img src={assets.basket_icon} alt="Кошик" className='w-8'/>
             <p className='absolute right-[-5px] bottom-[-5px] w-4 text-center leading-4 bg-black text-white aspect-square rounded-full text-[10px]'>{getCartCount()}</p>
           </Link>
           <div className='group relative'>
             <Link to='/login'><img 
               src={assets.profile_icon} 
               alt="Профіль" 
-              className="cursor-pointer" 
+              className="cursor-pointer w-8 " 
             /></Link>
-            <div className='absolute hidden group-hover:block right-0 top-full mt-1 z-50'>
-              <div className='dropdown_profile'>
-                <p className='pb-2'>Мій профіль</p>
-                <p className='pb-2'>Замовлення</p>
-                <p className=''>Вийти</p>
-              </div>
-            </div>
+            
           </div>
           <img 
             onClick={() => setVisible(true)} 
             src={assets.menu_burger} 
-            className=' icon_ menu_burger' 
+            className='w-8' 
             alt="Меню" 
           />
         </div>

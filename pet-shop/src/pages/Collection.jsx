@@ -55,7 +55,7 @@ const Collection = ({ defaultCategory }) => {
     'hygiene' : 'Догляд та гігієна'
   };
   const subCategories = ['dry_food', 'conserve', 'health', 'bed', 'leash', 'toilet_fillers', 'toilet', 'clothes', 'utensil', 'hygiene'];
-  const brands = ['purina', 'royal_canin', 'hills'];
+  const brands = ['purina', 'royal-canin', 'hills'];
 
   // Головний ефект для фільтрації та сортування
   useEffect(() => {

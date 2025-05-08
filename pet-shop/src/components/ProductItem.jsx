@@ -1,10 +1,17 @@
 import { assets } from '../assets/assets';
+import { useNavigate } from 'react-router-dom';
 
 const ProductItem = ({ name, _id, price, image }) => {
+  const navigate = useNavigate();
+  
   if (!_id || !name) return null;
 
+  const handleClick = () => {
+    navigate(`/product/${_id}`);
+  };
+
   return (
-    <div className="product-item">
+    <div className="product-item cursor-pointer" onClick={handleClick}>
       <img 
         className='product_image'
         src={image || assets.placeholder} 
