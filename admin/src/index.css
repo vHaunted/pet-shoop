@@ -42,3 +42,7 @@ select, input, textarea{
     outline-color: #F7E0A3;
     border-radius: 4px;
 }
+
+.confirm-delete-window {
+    background-color: #00000065;
+}

@@ -36,9 +36,6 @@ const Orders = () => {
                 {currency}{item.price.toFixed(2)}
               </p>
             </div>
-            {/* <div className='text-sm text-gray-500'>
-              Статус: <span className='text-green-600'>Доставлено</span>
-            </div> */}
 
             <div className=' flex justify-between'>
               <div className='flex items-center gap-2'>

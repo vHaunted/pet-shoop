@@ -18,7 +18,6 @@ const loginUser = async(req, res) => {
             return res.json({success:false, message:"Користувача не існує"})
         }
 
-        // 
         const isMatch = await bcrypt.compare(password, user.password);
 
         if (isMatch){
@@ -78,7 +77,11 @@ const adminLogin = async(req, res) => {
         const {email, password} = req.body
 
         if(email === process.env.ADMIN_EMAIL && password === process.env.ADMIN_PASSWORD) {
-            const token = jwt.sign(email+password, process.env.JWT_SECRET);
+            const payload = {
+                email: email,
+                role: 'admin'
+            };
+            const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '1h' });
             res.json({success:true, token})
         } else {
             res.json({success:false, message:"Неправильні дані"})

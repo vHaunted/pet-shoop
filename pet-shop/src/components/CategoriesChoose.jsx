@@ -5,7 +5,6 @@ import { Link } from 'react-router-dom';
 const CategoriesChoose = () => {
   return (
     <div className=''>
-      {/* Змінено цей блок - додано mx-auto та text-center */}
       <div className='text-center mx-auto max-w-3xl px-4 mt-5 mb-8'>
         <h1 className='text-2xl sm:text-3xl font-medium'>
           Ми пропонуємо вашим улюбленцям лише якісний та оригінальний товар!

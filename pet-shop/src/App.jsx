@@ -16,7 +16,6 @@ import { ToastContainer, toast } from 'react-toastify';
 const App = () => {
   return (
     <div className='flex flex-col min-h-screen'>
-      {/* Контейнер з обмеженим вмістом */}
       <div className='px-4 sm:px-[5vw] md:px-[7vw] lg:px-[9vw] flex-1'>
         <ToastContainer/>
         <Navbar/>
@@ -33,7 +32,6 @@ const App = () => {
         </Routes>
       </div>
       
-      {/* Футер за межами обмеженого контейнера */}
       <Footer/>
     </div>
   )

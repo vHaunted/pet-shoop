@@ -7,25 +7,6 @@ const Navbar = () => {
   const [visible, setVisible] = useState(false);
   const { setShowSearch, getCartCount } = useContext(ShopContext);
 
-  const categories = [
-    {
-      name: "Для котів",
-      subCategories: ["Сухий корм", "Консерви", "Ласощі", "Іграшки"]
-    },
-    {
-      name: "Для собак",
-      subCategories: ["Сухий корм", "Консерви", "Кістки", "Нашийники"]
-    },
-    {
-      name: "Для гризунів",
-      subCategories: ["Корм", "Клітки", "Аксесуари"]
-    },
-    {
-      name: "Для птахів",
-      subCategories: ["Корм", "Клітки", "Іграшки"]
-    }
-  ];
-
   return (
     <>
       {/* Перший навбар (основний) */}
@@ -71,32 +52,6 @@ const Navbar = () => {
         </div>
       </div>
 
-      {/* Другий навбар (категорії) */}
-      {/* <div className='border-b hidden sm:block'>
-        <div className='container mx-auto flex justify-center'>
-          <ul className='flex gap-1 py-3'>
-            {categories.map((category) => (
-              <li key={category.name} className='group relative'>
-                <button className='font-medium text-gray-700 hover:text-orange-500 transition'>
-                  {category.name}
-                </button>
-                <div className='absolute hidden group-hover:block left-0 top-full mt-1 bg-white shadow-lg rounded-md p-3 z-40 min-w-[200px]'>
-                  {category.subCategories.map((subCat) => (
-                    <Link 
-                      key={subCat} 
-                      to={`/collection?category=${category.name}&subCategory=${subCat}`}
-                      className='block py-2 px-4 hover:bg-gray-100 rounded transition'
-                    >
-                      {subCat}
-                    </Link>
-                  ))}
-                </div>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </div> */}
-
       {/* Sidebar menu for small screen */}
       <div className={`fixed top-0 right-0 bottom-0 bg-white shadow-xl z-50 overflow-y-auto transition-all duration-300 transform ${visible ? 'translate-x-0 w-72' : 'translate-x-full w-0'}`}>
         <div className='flex flex-col p-4'>
@@ -108,32 +63,6 @@ const Navbar = () => {
           <NavLink onClick={() => setVisible(false)} className='py-3 px-4 border-b' to='/'>Головна</NavLink>
           <NavLink onClick={() => setVisible(false)} className='py-3 px-4 border-b' to='/collection'>Каталог</NavLink>
           
-          {/* Категорії в бургер-меню */}
-          {/* <div className='mt-4'>
-            <h3 className='font-bold px-4 py-2'>Категорії</h3>
-            <ul className='pl-4'>
-              {categories.map((category) => (
-                <li key={category.name} className='mb-2'>
-                  <details>
-                    <summary className='font-medium py-2 cursor-pointer'>{category.name}</summary>
-                    <ul className='ml-4 mt-1'>
-                      {category.subCategories.map((subCat) => (
-                        <li key={subCat}>
-                          <Link 
-                            onClick={() => setVisible(false)}
-                            to={`/collection?category=${category.name}&subCategory=${subCat}`}
-                            className='block py-1.5 px-2 hover:bg-gray-100 rounded transition'
-                          >
-                            {subCat}
-                          </Link>
-                        </li>
-                      ))}
-                    </ul>
-                  </details>
-                </li>
-              ))}
-            </ul>
-          </div> */}
         </div>
       </div>
     </>

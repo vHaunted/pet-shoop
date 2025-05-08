@@ -2,8 +2,9 @@ import React, { useState } from 'react'
 import { assets } from '../assets/assets'
 import axios from 'axios'
 import backendUrl from '../backendUrl'
+import { toast } from 'react-toastify'
 
-const Add = () => {
+const Add = ({token}) => {
   const [image1, setImage1] = useState(false)
   const [image2, setImage2] = useState(false)
   const [image3, setImage3] = useState(false)
@@ -14,38 +15,67 @@ const Add = () => {
   const [category, setCategory] = useState("")
   const [subCategory, setSubCategory] = useState("")
   const [brand, setBrand] = useState("")
-
-  const onSubmitHandler = async() => {
-    e.preventDefault();
-
-    try {
-      const formData = new FormData()
-
-      formData.append("name", name)
-      formData.append("description", description)
-      formData.append("price", price)
-      formData.append("category", category)
-      formData.append("subCategory", subCategory)
-      formData.append("brand", brand)
-
-      image1 && formData.append("image1", image1)
-      image2 && formData.append("image2", image2)
-      image3 && formData.append("image3", image3)
-      image4 && formData.append("image4", image4)
-
-      const response = await axios.post(backendUrl + '/api/product/add', formData)
-      console.log(response.data);
+  
+      const onSubmitHandler = async(e) => {
+        e.preventDefault();
       
-    } catch (error) {
+        try {
+          const formData = new FormData()
+          formData.append("name", name)
+          formData.append("description", description)
+          formData.append("price", price)
+          formData.append("category", category)
+          formData.append("subCategory", subCategory)
+          formData.append("brand", brand)
       
-    }
-  }
+          image1 && formData.append("image1", image1)
+          image2 && formData.append("image2", image2)
+          image3 && formData.append("image3", image3)
+          image4 && formData.append("image4", image4)
+      
+          const config = {
+            headers: {
+              'Authorization': `Bearer ${token}`,  
+              'Content-Type': 'multipart/form-data'
+            }
+          }
+
+          if (!token) {
+            console.error("Токен не знайдено");
+            return;
+          }
+
+          console.log("Поточний токен:", token);
+          const response = await axios.post(backendUrl + '/api/product/add', formData, config)
+          console.log(response.data);
+
+          if(response.data.success) {
+            toast.success(response.data.message)
+            setName('')
+            setDescription('')
+            setImage1(false)
+            setImage2(false)
+            setImage3(false)
+            setImage4(false)
+            setPrice('')
+            setCategory('')
+            setSubCategory('')
+            setBrand('')
+          } else {
+            console.log(error);
+            toast.error(response.message)
+          }
+
+        } catch (error) {
+          console.error("Помилка при відправці:", error.response?.data || error.message);
+        }
+      }
 
   return (
     <form onSubmit={onSubmitHandler}
      className="max-w-3xl mx-auto p-6 bg-white rounded-lg shadow-md">
       <div className="mb-6">
-        <p className="mb-4 font-semibold">Додайте зображення (від 1 до 4)</p>
+        <p className="mb-4 font-semibold">Додайте зображення (макс. 10MB)</p>
 
         {/* Сітка зображень */}
         <div className="grid grid-cols-2 gap-4 md:grid-cols-2 sm:grid-cols-1">
@@ -196,10 +226,17 @@ const Add = () => {
                 onChange={(e) => setSubCategory(e.target.value)}
               >
                 <option value="">Оберіть підкатегорію</option>
-                <option value="food">Їжа</option>
+                <option value="dry_food">Сухий корм</option>
+                <option value="conserve">Консерви</option>
+                <option value="treats">Ласощі</option>
                 <option value="health">Здоров'я</option>
                 <option value="bed">Ліжко</option>
                 <option value="leash">Повідок</option>
+                <option value="toilet_fillers">Наповнювачі для туалету</option>
+                <option value="toilet">Лотки та пелюшки</option>
+                <option value="clothes">Одяг</option>
+                <option value="utensil">Посуд</option>
+                <option value="hygiene">Догляд та гігієна</option>
               </select>
             </div>
 
@@ -216,6 +253,7 @@ const Add = () => {
                 <option value="whiskas">Whiskas</option>
                 <option value="purina">Purina</option>
                 <option value="hills">Hill's</option>
+                <option value="nexgard">Nexgard</option>
               </select>
             </div>
 
@@ -236,7 +274,7 @@ const Add = () => {
 
       <button
         type="submit"
-        className="w-full py-3 px-4 bg-amber-500 hover:bg-amber-600 text-white font-bold rounded-md transition-colors duration-200"
+        className="cursor-pointer w-full py-3 px-4 bg-amber-500 hover:bg-amber-600 text-white font-bold rounded-md transition-colors duration-200"
       >
         Додати продукт
       </button>

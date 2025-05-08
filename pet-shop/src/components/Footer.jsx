@@ -16,18 +16,6 @@ const Footer = () => {
                 <p className='w-full text-gray-600'>Тут можна написати типу цей сайт це наша проектна робота таких то студентва ну просто по приколу</p>
             </div>
 
-            {/* <div className='ml-10'>
-                <p className='text-xl mb-5 font-[Prata]'>Щось тут</p>
-                <ul className='flex flex-col gap-1 text-gray-600'>
-                    <li>Головна сторінка</li>
-                    <li>Про нас</li>
-                    <li>Доставка</li>
-                    <li>Сертифікати</li>
-                    <li>Приватність</li>
-                    <li>Щось там</li>
-                </ul>
-            </div> */}
-
             <div>
                 <p className='text-xl mb-5 font-[Prata]'>Контактна інформація</p>
                 <ul className='flex flex-col gap-4 text-gray-600'>

@@ -17,6 +17,7 @@ import search_icon from './images/search_icon.png'
 import add_icon from './images/add.png'
 import overview from './images/overview.png'
 import upload_file from './images/file-upload.png'
+import trash from './images/trash-xmark.png'
 
 export const assets = {
     logo,
@@ -37,5 +38,6 @@ export const assets = {
     credit_card,
     angle_right,
     angle_left,
-    upload_file 
+    upload_file ,
+    trash
 }

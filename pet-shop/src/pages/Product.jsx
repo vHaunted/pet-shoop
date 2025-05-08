@@ -58,19 +58,13 @@ const Product = () => {
           <p className='mt-5 text-3xl font-medium'>{currency}{productData.price}</p>
           <p className='text-sm preserve-whitespace'>{productData.description}</p>
           
-          {/* = Select Size = */}
-          <div className='flex flex-col gap-4 my-8'>
-            <p>Select Something?</p>
-          </div>
-          
           {/* == Add to Cart == */}
-          <div>
+          <div className='mt-7'>
             <button onClick={()=>addToCart(productData._id)}>Додати до кошика</button>
             <hr className='mt-8 sm:w-4/5'/>
             <div className='text-sm text-gray-600 mt-5 flex flex-col gap-1'>
-                <p>100% Original Product!</p>
-                <p>Cash on delivery is available</p>
-                <p>Easy return and exchange policy blablabla</p>
+                <p>100% Оригінальний продукт!</p>
+                <p>Доступна оплата у відділенні.</p>
             </div>
           </div>
         </div>

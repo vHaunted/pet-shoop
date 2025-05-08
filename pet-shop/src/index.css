@@ -1,18 +1,13 @@
+@import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@300..700&family=Prata&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Montserrat+Alternates:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
-/* font-family: "Montserrat Alternates", sans-serif;
-*/
-@import url('https://fonts.googleapis.com/css2?family=Didact+Gothic&family=Montserrat+Alternates:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
-/*  font-family: "Didact Gothic", sans-serif;
- */
- @import url('https://fonts.googleapis.com/css2?family=Prata&display=swap');
-/* font-family: "Prata", serif; 
- */
-@import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@300..700&family=Prata&display=swap');
-
+* {
+    font-family: "Comfortaa", sans-serif;
+    font-size: medium;
+}
 
 a.active hr{
     display: block;
@@ -38,7 +33,6 @@ body{
     /* background-color: rgb(255, 255, 248); */
 }
 
-
 h1 {
     font-family: "Prata", serif;
     font-weight: 500;
@@ -57,18 +51,20 @@ h1 {
 }
 
 .form-filter {
-    border-radius: 15px;
+    border-radius: 10px;
     padding: 10px;
     margin-bottom: 10px;
-    background-color: rgb(255, 255, 248);
+    background-color: rgb(255, 255, 255);
 }
 
 .form-container {
+    border-radius: 10px;
     max-width: 300px;
     padding: 15px;
     padding-top: 3px;
-    border-radius: 20px;
-    background: linear-gradient(to right,#ffeae0, rgb(255, 255, 248) );
+    background-color: #fffde8;
+    
+    /* background: linear-gradient(to right,#ffe59f, rgb(255, 255, 255) ); */
 }
 
 .all_subcat_butt {

@@ -13,7 +13,7 @@ const Hero = () => {
         borderRadius: '40px'
       }}
     >
-      {/* Затемнення фону (опціонально) */}
+      {/* Затемнення фону */}
       <div className='absolute inset-0 bg-black/20'
         style={{borderRadius:'40px'}}></div>
 

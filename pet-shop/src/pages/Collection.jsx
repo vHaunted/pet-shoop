@@ -44,9 +44,17 @@ const Collection = ({ defaultCategory }) => {
   const subCatTranslations = {
     'dry_food': 'Сухий корм',
     'conserve': 'Консерви',
-    'health': 'Здоров\'я'
+    'treats' : 'Лассощі',
+    'health': 'Здоров\'я',
+    'bed' : 'Ліжко',
+    'leash' : 'Повідок',
+    'toilet_fillers' : 'Наповнювачі для туалету',
+    'toilet' : 'Лотки та пелюшки',
+    'clothes' : 'Одяг',
+    'utensil' : 'Посуд',
+    'hygiene' : 'Догляд та гігієна'
   };
-  const subCategories = ['dry_food', 'conserve', 'health'];
+  const subCategories = ['dry_food', 'conserve', 'health', 'bed', 'leash', 'toilet_fillers', 'toilet', 'clothes', 'utensil', 'hygiene'];
   const brands = ['purina', 'royal_canin', 'hills'];
 
   // Головний ефект для фільтрації та сортування
@@ -99,7 +107,7 @@ const Collection = ({ defaultCategory }) => {
       case 'high-low':
         sorted.sort((a, b) => b.price - a.price);
         break;
-      default: // "relevant" - оригінальний порядок
+      default: 
         break;
     }
 
@@ -300,7 +308,7 @@ const Collection = ({ defaultCategory }) => {
                 name={item.name} 
                 _id={item._id} 
                 price={item.price} 
-                image={item.image}
+                image={item.images?.[0]}
               />
             ))
           ) : (
