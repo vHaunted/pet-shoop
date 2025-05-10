@@ -18,6 +18,8 @@ const ShopContextProvider = (props) => {
       }
     const [products, setProducts] = useState([]);
 
+    const [token, setToken] = useState('');
+
     const [search, setSearch] = useState('');
     const [showSearch, setShowSearch] = useState(false);
     const [cartItems, setCartItems] = useState({}); 
@@ -116,7 +118,9 @@ const ShopContextProvider = (props) => {
         getCartCount,
         updateQuantity,
         getCartAmount,
-        navigate
+        navigate,
+
+        setToken, token
     };
 
     return (
