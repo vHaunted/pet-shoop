@@ -4,7 +4,7 @@ import { assets } from '../assets/assets';
 const Hero = () => {
   return (
     <div 
-      className='relative z-0 flex flex-col sm:flex-row border border-gray-400 min-h-[400px] mt-4'
+      className='relative z-10 flex flex-col sm:flex-row border border-gray-400 min-h-[400px] mt-4'
       style={{ 
         backgroundImage: `url(${assets.header})`,
         backgroundSize: 'cover',

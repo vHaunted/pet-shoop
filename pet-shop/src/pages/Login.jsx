@@ -1,10 +1,10 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { ShopContext } from '../context/ShopContext'
 import axios from 'axios';
 import { toast } from 'react-toastify';
 
 const Login = () => {
-  const [currentState, setCurrentState] = useState('Зареєструватись');
+  const [currentState, setCurrentState] = useState('Увійти');
   const {token, setToken, navigate} = useContext(ShopContext);
   const backendUrl = "http://localhost:4000";
   const [name, setName] = useState('')
@@ -14,22 +14,39 @@ const Login = () => {
   const onSubmitHandler = async (event) => {
     event.preventDefault();
     try {
-      const response = await axios.post(
-        backendUrl + '/api/user/register', 
-        {name, email, password}
-      );
+      if (currentState === 'Зареєструватись') {
+        const response = await axios.post(
+          backendUrl + '/api/user/register', 
+          {name, email, password}
+        );
       
-      if(response.data.success) {
-        toast.success(response.data.message);
-        setToken(response.data.token);
-        localStorage.setItem('token', response.data.token);
-        navigate('/');
+        if(response.data.success) {
+          toast.success(response.data.message);
+          setToken(response.data.token);
+          localStorage.setItem('token', response.data.token);
+          navigate('/');
+        }
+      } else {
+        const response = await axios.post(backendUrl + '/api/user/login', {email, password})
+        if(response.data.success) {
+          setToken(response.data.token)
+          localStorage.getItem('token',response.data.token)
+        } else {
+          toast.error(response.data.message)
+        }
+        
       }
     } catch (error) {
       toast.error(error.response?.data?.message || 'Сталася помилка');
       console.error(error);
     }
   }
+
+  useEffect(()=>{
+    if(token) {
+      navigate('/')
+    }
+  },[token])
 
   return (
     <form onSubmit={onSubmitHandler} className='flex flex-col items-center w-[90%] sm:max-w-96 m-auto mt-14 gap-4 text-black' action="">

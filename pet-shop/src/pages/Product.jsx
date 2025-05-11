@@ -16,7 +16,6 @@ const Product = () => {
     const foundProduct = products.find(item => item._id === productId);
     if (foundProduct) {
       setProductData(foundProduct);
-      // Безпечний доступ до images[0] з перевіркою
       setImage(foundProduct.images?.[0] || assets.placeholder);
     }
   }

@@ -25,11 +25,15 @@ const Orders = () => {
       <div className='space-y-4'>
         {products.slice(1, 4).map((item) => ( // Беремо перші 3 продукти
           <div key={item._id} className='py-4 border-t border-b text-gray-700 flex flex-col md:flex-row md:items-center gap-6'>
-            <img 
-              className='w-16 sm:w-20 h-16 sm:h-20 object-cover rounded-lg' 
-              src={item.image[0]} 
-              alt={item.name} 
-            />
+            {item.images && item.images.length > 0 ? (
+              <img 
+                className='w-16 sm:w-20 h-16 sm:h-20 object-cover rounded-lg' 
+                src={item.images[0]} 
+                alt={item.names} 
+              />
+            ) : (
+              <div className='w-16 sm:w-20 h-16 sm:h-20 bg-stone-400 rounded-lg'></div>
+            )}
             <div className='flex-1'>
               <h3 className='font-medium'>{item.name}</h3>
               <p className='text-orange-700 mt-1'>
