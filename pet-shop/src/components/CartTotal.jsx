@@ -1,9 +1,19 @@
-import React, { useContext } from 'react'
-import { ShopContext } from '../context/ShopContext'
+import React, { useContext } from 'react';
+import { ShopContext } from '../context/ShopContext';
 
 const CartTotal = () => {
-
-  const {currency, delivery_fee, getCartAmount} = useContext(ShopContext);
+  const { 
+    currency, 
+    delivery_fee, 
+    getCartAmount,
+    cartItems  // Додаємо cartItems для перевірки
+  } = useContext(ShopContext);
+  
+  // Додаємо перевірку на порожній кошик
+  const isEmpty = !cartItems?.items?.length;
+  const totalAmount = isEmpty ? 0 : getCartAmount();
+  const delivery = isEmpty ? 0 : delivery_fee;
+  const totalWithDelivery = totalAmount + delivery;
 
   return (
     <div className='w-full'>
@@ -14,21 +24,21 @@ const CartTotal = () => {
       <div className='flex flex-col gap-2 mt-2 text-sm'>
         <div className='flex justify-between'>
           <p>Сумарна ціна товарів</p>
-          <p>{currency}{getCartAmount()}.00</p>
+          <p>{currency}{totalAmount.toFixed(2)}</p>
         </div>
         <hr />
         <div className='flex justify-between'>
           <p>Доставка</p>
-          <p>{currency}{delivery_fee}.00</p>
+          <p>{currency}{delivery.toFixed(2)}</p>
         </div>
         <hr />
         <div className='flex justify-between'>
           <b>Загальна сума</b>
-          <b>{currency}{getCartAmount()=== 0 ? 0 : getCartAmount() + delivery_fee}.00</b>
+          <b>{currency}{totalWithDelivery.toFixed(2)}</b>
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default CartTotal
+export default CartTotal;

@@ -1,27 +1,42 @@
-import React, { useContext, useEffect, useState } from 'react'
-import { ShopContext } from '../context/ShopContext'
-import {assets} from '../assets/assets.js'
+import React, { useContext, useEffect, useState } from 'react';
+import { ShopContext } from '../context/ShopContext';
+import { assets } from '../assets/assets';
 import CartTotal from '../components/CartTotal.jsx';
 
 const Cart = () => {
-  const {products, currency, cartItems, updateQuantity, navigate} = useContext(ShopContext);
-  const[cartData, setCartData] = useState([]);
+  const { 
+    products, 
+    currency, 
+    cartItems, 
+    updateQuantity, 
+    navigate, 
+    token,
+    fetchCart
+  } = useContext(ShopContext);
+  const [loading, setLoading] = useState(true);
 
-  useEffect(()=>{
-    const tempData = [];
-    for(const items in cartItems){
-      for(const item in cartItems[items]){
-        if(cartItems[items][item]>0){
-          tempData.push({
-            _id: items,
-            size:item,
-           quantity:cartItems[items][item] 
-          })
-        }
+  useEffect(() => {
+    const loadCart = async () => {
+      if (!token) {
+        navigate('/login');
+        return;
       }
-    }
-    setCartData(tempData);
-  },[cartItems])
+      
+      try {
+        await fetchCart();
+      } catch (error) {
+        console.error("Помилка завантаження кошика:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadCart();
+  }, [token, navigate, fetchCart]);
+
+  if (loading) {
+    return <div className="text-center py-10">Завантаження кошика...</div>;
+  }
 
   return (
     <div className='border-t pt-14'>
@@ -29,40 +44,73 @@ const Cart = () => {
         <h1>Ваша корзинка</h1>
       </div>
 
-      <div >
-        {
-          cartData.map((item, index)=>{
-            const productData = products.find((product)=>product._id === item._id);
+      {cartItems?.items?.length > 0 ? (
+        <div>
+          {cartItems.items.map((item) => {
+            // Знаходимо продукт в загальному списку або використовуємо попульований з кошика
+            const product = products.find(p => p._id === item.product?._id) || item.product;
+            
+            if (!product) {
+              console.warn("Продукт не знайдено:", item.product);
+              return null;
+            }
 
             return (
-              <div key={index} className='py-4 border-t border-b text-gray-700 grid grid-cols-[4fr_2fr_0.5fr] items-center gap-4'>
+              <div key={item.product._id || item.product} className='py-4 border-t border-b text-gray-700 grid grid-cols-[4fr_2fr_0.5fr] items-center gap-4'>
                 <div className='flex items-start gap-6'>
-                  <img className='cart_images' src={productData.image[0]} alt="" />
+                  <img 
+                    className='w-16 h-16 object-cover rounded-lg' 
+                    src={product.images?.[0] || assets.placeholder} 
+                    alt={product.name}
+                    onError={(e) => {
+                      e.target.src = assets.placeholder;
+                    }}
+                  />
                   <div>
-                    <p className='text-xs sm:text-lg font-medium'>{productData.name}</p>
-                    <div className='flex items-center gap-5 mt-2'>
-                      <p>{currency}{productData.price}</p>
-                    </div>
+                    <p className='text-sm sm:text-lg font-medium'>{product.name}</p>
+                    <p className='text-orange-600 mt-1'>{currency}{product.price?.toFixed(2) || '0.00'}</p>
                   </div>
                 </div>
-                <input onClick={(e)=>e.target.value==='' || e.target.value === '0' ? null : updateQuantity(item._id,  item.size, Number(e.target.value))} className='border max-w-10 sm:max-w-20 px-1 sm:px-2 py-1' type="number" min={1} defaultValue={item.quantity} />
-                <img onClick={()=>updateQuantity(item._id,item.size,0)} className='w-6 mr-4 sm:w-6 cursor-pointer' src={assets.delete_icon} alt="" />
+                <input
+                  onChange={(e) => {
+                    const val = Number(e.target.value);
+                    if (val > 0) updateQuantity(item.product._id || item.product, val);
+                  }}
+                  className='border max-w-20 px-2 py-1'
+                  type="number"
+                  min={1}
+                  value={item.quantity}
+                />
+                <img
+                  onClick={() => updateQuantity(item.product._id || item.product, 0)}
+                  className='w-6 cursor-pointer'
+                  src={assets.delete_icon}
+                  alt="Видалити"
+                />
               </div>
-            )
-          })
-        }
-      </div>
-
+            );
+          })}
+        </div>
+      ) : (
+        <p className='py-10 text-center'>Кошик порожній</p>
+      )}
+      
       <div className='flex justify-end my-20'>
         <div className='w-full sm:w-[450px]'>
-          <CartTotal/>
+          <CartTotal />
           <div className='w-full text-end'>
-            <button onClick={()=>navigate('/place-order')} className='mt-6'>Зробити замовлення</button>
+            <button 
+              onClick={() => navigate('/place-order')} 
+              className='mt-6 px-6 py-2 bg-orange-500 text-white rounded hover:bg-orange-600 transition'
+              disabled={!cartItems?.items?.length}
+            >
+              Зробити замовлення
+            </button>
           </div>
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Cart
+export default Cart;

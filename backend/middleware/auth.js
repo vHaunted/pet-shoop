@@ -1,19 +1,18 @@
 import jwt from 'jsonwebtoken'
 
 const authUser = async (req, res, next) => {
-    const {token} = req.headers;
-
+    const token = req.headers.authorization?.split(' ')[1]; // Очікуємо "Bearer TOKEN"
+    
     if(!token) {
-        return res.jsom({success:false, message: ''})
+        return res.status(401).json({success:false, message: 'Необхідна авторизація'});
     }
 
     try {
-        const token_decode = jwt.verify(token, process.env.JWT_SECRET)
-        req.body.userId = token_decode.id
-        next()
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        req.userId = decoded._id; // Передаємо ID з токена
+        next();
     } catch (error) {
-        console.log(error)
-        res.json({success:false, message: error.message})
+        res.status(401).json({success:false, message: 'Недійсний токен'});
     }
 }
 

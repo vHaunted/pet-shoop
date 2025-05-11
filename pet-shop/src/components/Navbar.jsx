@@ -35,7 +35,9 @@ const Navbar = () => {
         
           <Link to='/cart' className='relative'>
             <img src={assets.basket_icon} alt="Кошик" className='w-8'/>
-            <p className='absolute right-[-5px] bottom-[-5px] w-4 text-center leading-4 bg-black text-white aspect-square rounded-full text-[10px]'>{getCartCount()}</p>
+            <p className='absolute right-[-5px] bottom-[-5px] w-4 text-center leading-4 bg-black text-white aspect-square rounded-full text-[10px]'>
+              {getCartCount ? getCartCount() : 0}
+            </p>
           </Link>
 
           {/* PROFILE PIC ======================== */}

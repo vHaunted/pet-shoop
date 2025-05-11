@@ -1,21 +1,19 @@
 import jwt from 'jsonwebtoken'
 
+const adminAuth = (req, res, next) => {
+  const token = req.headers.token;
 
-const adminAuth = async(req, res, next) => {
-    try {
-        const authHeader = req.headers.authorization;
-        if (!authHeader || !authHeader.startsWith('Bearer ')) {
-            return res.json({success:false, message:"Не авторизовано. Спробуйте знову"})
-        }
-        
-        const token = authHeader.split(' ')[1];
-        // для перевірки валідності токену
-        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+  if (!token) {
+    return res.status(403).json({ success: false, message: 'Токен не передано' });
+  }
 
-        next();
-    } catch (error) {
-        console.log(error);
-        res.json({success:false, message:"Не валідний токен"})
-    }
-}
+  try {
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    req.userId = decoded.id; // буде доступний у контролерах
+    next();
+  } catch (err) {
+    return res.status(401).json({ success: false, message: 'Невірний токен' });
+  }
+};
+
 export default adminAuth;
