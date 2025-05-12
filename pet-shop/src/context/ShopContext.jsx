@@ -1,4 +1,4 @@
-import { createContext, useEffect, useState } from "react";
+import { createContext, useEffect, useState, useCallback } from "react";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import axios from 'axios';
@@ -11,7 +11,9 @@ const ShopContextProvider = (props) => {
 
   const backendUrl = "http://localhost:4000";
   const [products, setProducts] = useState([]);
-  const [token, setToken] = useState('');
+
+  const [token, setToken] = useState(localStorage.getItem('token') || '');
+
   const [search, setSearch] = useState('');
   const [showSearch, setShowSearch] = useState(false);
 
@@ -47,12 +49,19 @@ const ShopContextProvider = (props) => {
   };
 
   const updateQuantity = async (productId, quantity) => {
+    if (!token) {
+      navigate('/login');
+      return;
+    }
+
     try {
       const res = await axios.post(`${backendUrl}/api/cart/update`, 
         { productId, quantity },
         { headers: { Authorization: `Bearer ${token}` } }
       );
+      
       setCartItems(res.data.cartData);
+      await fetchCart(); // Оновити стан кошика
     } catch (error) {
       console.error("Помилка оновлення кількості:", error);
       toast.error("Не вдалося оновити кількість");
@@ -100,48 +109,68 @@ const ShopContextProvider = (props) => {
     }
   };
 
+  const getUsercart = async (token) => {
+    try {
+      const response = await axios.post(backendUrl + '/api/cart/get', {},
+        {headers:{token}}
+      )
+
+      if(response.data.success){
+        setCartItems(response.data.cartData)
+      }
+    } catch (error) {
+      console.error("Деталі помилки:", error);
+      toast.error("Помилка при отриманні товарів");
+    }
+  }
+
   useEffect(() => {
     getProductsData();
   }, []);
 
-  const fetchCart = async () => {
-    if (!token) return;
+  const fetchCart = useCallback(async () => {
+    if (!token) {
+      setCartItems({ items: [] });
+      return;
+    }
 
     try {
       const res = await axios.get(`${backendUrl}/api/cart/get`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       
-      // Додаємо глибоку перевірку структури даних
       const cartData = res.data.cartData || { items: [] };
-      if (!cartData.items || !Array.isArray(cartData.items)) {
+      if (!Array.isArray(cartData.items)) {
         cartData.items = [];
       }
-
-      // Фільтруємо невалідні елементи
-      cartData.items = cartData.items.filter(item => 
-        item && item.product && item.quantity > 0
-      );
 
       setCartItems(cartData);
     } catch (error) {
       console.error("Помилка завантаження кошика:", error);
       setCartItems({ items: [] });
     }
-  };
-
-  useEffect(() => {
-    fetchCart();
   }, [token]);
 
   useEffect(() => {
-    const loadData = async () => {
-      await getProductsData();
-      if (token) {
-        await fetchCart();
+    const loadInitialData = async () => {
+      try {
+        await getProductsData();
+        await fetchCart(); // Використовуємо уніфіковану функцію
+      } catch (error) {
+        console.error("Помилка ініціалізації:", error);
       }
     };
-    loadData();
+    
+    loadInitialData();
+  }, [fetchCart]);
+
+  useEffect(() => {
+    if (token) {
+      localStorage.setItem('token', token);
+    } else {
+      localStorage.removeItem('token');
+      setCartItems({ items: [] });
+    }
   }, [token]);
 
   const value = {
@@ -158,7 +187,17 @@ const ShopContextProvider = (props) => {
     getCartAmount,
     fetchCart,
     navigate,
-    token, setToken,
+    token, 
+    setToken: (newToken) => {
+      setToken(newToken);
+      // Оновлюємо кошик при зміні токена
+      if (newToken) {
+        fetchCart();
+      } else {
+        setCartItems({ items: [] });
+      }
+    },
+    getUsercart
   };
 
   return (

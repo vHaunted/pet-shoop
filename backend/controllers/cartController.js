@@ -45,20 +45,12 @@ const addToCart = async (req, res) => {
 // update user cart 
 const updateCart = async (req, res) => {
   try {
-    console.log('Отримано запит:', req.method, req.body);
     const { productId, quantity } = req.body;
     const user = await userModel.findById(req.userId);
     
     if (!user) {
       return res.status(404).json({ success: false, message: "Користувача не знайдено" });
     }
-
-    const populatedUser = await user.populate('cartData.items.product');
-    
-    res.json({ 
-      success: true,
-      cartData: populatedUser.cartData
-    });
 
     // Ініціалізуємо cartData якщо його немає
     if (!user.cartData) user.cartData = { items: [] };
@@ -78,11 +70,13 @@ const updateCart = async (req, res) => {
     }
 
     await user.save();
+    const populatedUser = await user.populate(populateOptions);
     
+    // Відправляємо ТІЛЬКИ ОДНУ відповідь
     res.json({ 
       success: true,
       message: "Кошик оновлено",
-      cartData: user.cartData
+      cartData: populatedUser.cartData
     });
   } catch (error) {
     console.error(error);

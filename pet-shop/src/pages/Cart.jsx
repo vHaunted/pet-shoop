@@ -47,13 +47,12 @@ const Cart = () => {
       {cartItems?.items?.length > 0 ? (
         <div>
           {cartItems.items.map((item) => {
-            // Знаходимо продукт в загальному списку або використовуємо попульований з кошика
             const product = products.find(p => p._id === item.product?._id) || item.product;
             
-            if (!product) {
-              console.warn("Продукт не знайдено:", item.product);
-              return null;
-            }
+            if (!product) return null;
+
+            // Створюємо унікальний ключ із ID продукту та його к-стю
+            // const uniqueKey = `${product._id}-${item.quantity}`;
 
             return (
               <div key={item.product._id || item.product} className='py-4 border-t border-b text-gray-700 grid grid-cols-[4fr_2fr_0.5fr] items-center gap-4'>
