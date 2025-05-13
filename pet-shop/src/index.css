@@ -101,13 +101,6 @@ h1 {
     border-radius: 20px;
 }
 
-.order_input {
-    border: #49557e 1px solid;
-    border-radius: 10px;
-    padding: 6px;
-    background-color: white;
-}
-
 .policy_ {
     @apply flex flex-col sm:flex-row justify-around gap-12 sm:gap-2 text-center py-6 my-7 text-xs sm:text-sm md:text-base text-gray-700;
     border-top: 1px solid #49557e;

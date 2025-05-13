@@ -7,6 +7,7 @@ import connectCloudinary from "./config/cloudinary.js"
 import userRouter from './routes/userRoute.js'
 import productRouter from './routes/productRoute.js'
 import cartRouter from './routes/cartRoute.js'
+import orderRouter from './routes/orderRoute.js';
 
 // App Config
 dotenv.config();
@@ -20,6 +21,7 @@ connectCloudinary()
 app.use(cors());
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true }));
+app.use('/api/order', orderRouter)
 
 // Connect DB and Cloudinary
 connectDB();

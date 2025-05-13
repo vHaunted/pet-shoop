@@ -35,6 +35,9 @@ import telegram from './images/icons/telegram.png'
 import back_1 from './images/backgrounds/96060.jpg'
 import back_2 from './images/backgrounds/pexels-codioful-7130557.jpg'
 
+import stripe from './images/icons/stripe.svg'
+import razorpay from './images/icons/razorpay.svg'
+
 export const assets = {
     logo,
     logo_2,
@@ -67,5 +70,7 @@ export const assets = {
     delete_icon,
     hand_money,
     credit_card,
-    credit_card_filled
+    credit_card_filled,
+    stripe,
+    razorpay
 }
