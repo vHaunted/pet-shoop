@@ -4,7 +4,8 @@ import userModel from "../models/userModel.js";
 // Placing Orders using COD(cash on delivery) method =====================
 const placeOrder = async(req, res) => {
     try {
-        const {userId, items, amount, address} = req.body;
+        const userId = req.userId;
+        const {items, amount, address} = req.body;
         const orderData = {
             userId,
             items,
