@@ -40,17 +40,41 @@ const placeOrderRazorpay = async(req, res) => {
 
 // All Orders data for ADMIN PANEL ===========================================
 const allOrders = async(req, res) => {
-
+    try {
+        const orders = await orderModel.find({})
+        res.json({success:true, orders})
+    } catch (error) {
+        console.log(error);
+        res.json({success:false, message:"Помилка виводу замовлень!:"+error.message})
+    }
 }
 
 // USER ORDER DATA for Frontend ===========================================
 const userOrders = async(req, res) => {
-    
+    try {
+        
+        const userId = req.userId;
+        const {items, amount, address} = req.body;
+
+        const orders = await orderModel.find({ userId });
+
+        res.json({success: true, orders})
+
+    } catch (error) {
+        console.log(error);
+        res.json({success:false, message:"Помилка оформлення замовлення:"+error.message})
+    }
 }
 
 // Update ORDER STATUS from ADMIN PANEL ===========================================
 const updateStatus = async(req, res) => {
-    
+    try {
+        const {orderId, status} = req.body
+        await orderModel.findByIdAndUpdate(orderId, {status})
+        res.json({succes:true, message:'Статус оновлено!'+error.message})
+    } catch (error) {
+        
+    }
 }
 
 export {placeOrder, placeOrderStripe, placeOrderRazorpay, allOrders, userOrders, updateStatus}

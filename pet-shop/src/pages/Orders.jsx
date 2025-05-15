@@ -1,52 +1,82 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { ShopContext } from '../context/ShopContext'
+import axios from 'axios';
 
 const Orders = () => { 
-  const { products, currency } = useContext(ShopContext);
+  const { currency, backendUrl, token } = useContext(ShopContext);
 
-  // Перевірка наявності продуктів
-  if (!products || products.length === 0) {
-    return (
-      <div className='border-t pt-16'>
-        <div className='text-2xl mb-4'>
-          <h1>Ваші замовлення</h1>
-        </div>
-        <p>Немає доступних замовлень</p>
-      </div>
-    )
+  const [orderData, setOrderData] = useState([])
+
+  const loadOrderData = async () => {
+    try {
+      if(!token) {
+        return null
+      }
+
+      const response = await axios.post(backendUrl + '/api/order/userorders', {}, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
+      console.log(response.data);
+
+      if (response.data.success && Array.isArray(response.data.orders)) {
+        setOrderData(response.data.orders); // запис у state
+      }
+      
+    } catch (error) {
+         console.error("Помилка отримання замовлень:", error);
+    }
   }
+
+  useEffect(() => {
+    loadOrderData()
+  }, [token])
 
   return (
     <div className='border-t pt-16'>
-      <div className='text-2xl mb-6'>
+      <div className='text-3xl mb-7'>
         <h1>Ваші замовлення</h1>
       </div>
 
       <div className='space-y-4'>
-        {products.slice(1, 4).map((item) => ( // Беремо перші 3 продукти
-          <div key={item._id} className='py-4 border-t border-b text-gray-700 flex flex-col md:flex-row md:items-center gap-6'>
-            {item.images && item.images.length > 0 ? (
-              <img 
-                className='w-16 sm:w-20 h-16 sm:h-20 object-cover rounded-lg' 
-                src={item.images[0]} 
-                alt={item.names} 
-              />
-            ) : (
-              <div className='w-16 sm:w-20 h-16 sm:h-20 bg-stone-400 rounded-lg'></div>
-            )}
-            <div className='flex-1'>
-              <h3 className='font-medium'>{item.name}</h3>
-              <p className='text-orange-700 mt-1'>
-                {currency}{item.price.toFixed(2)}
-              </p>
+        {orderData.sort((a, b) => b.date - a.date)
+        .map((order) => (
+          <div key={order._id} className='border p-4 space-y-2'>
+            {/* <h2 className='font-bold'>Замовлення № {order._id}</h2> */}
+            <p className='text-sm text-stone-500'>Дата: {new Date(order.date).toLocaleString()}</p>
+            <div className='space-y-2'>
+              {order.items.map((item, i) => {
+                const product = item.product || item; // якщо продукт вже попульовано
+                return (
+                  <div key={i} className='flex items-center gap-4 border-b pb-2'>
+                    <img 
+                      src={product.images?.[0] || ''} 
+                      alt={product.name} 
+                      className='w-16 h-16 object-cover rounded-lg' 
+                    />
+                    <div className='flex-1'>
+                      <p className='font-medium mb-2'>{product.name}</p>
+                      <div className='flex gap-5'>
+                        <p className='text-sm text-stone-500'>
+                          Кількість: {item.quantity}
+                        </p>
+                        <p className='text-sm text-stone-500'>
+                          Ціна: <strong>{currency}{(product.price * item.quantity).toFixed(0)}</strong> 
+                        </p>
+                      </div>
+                      <p className='text-sm font-medium text-stone-500'>Спосіб оплати: {order.paymentMethod}</p>
+                    </div>
+                  </div>
+                )
+              })}
             </div>
-
-            <div className=' flex justify-between'>
-              <div className='flex items-center gap-2'>
-                <p className='min-w-2 h-2 rounded-full bg-green-500'></p>
-                <p className='text-sm md:text-base'>Доставлено</p>
-                <p></p>
-              </div>
+            <div className='flex justify-between items-center'>
+              <p className='font-semibold text-orange-700'>{order.status}</p>
+              <p className='mt-2'>
+                Сума замовлення: <strong className='text-orange-700 font-bold text-lg'>{currency}{order.amount.toFixed(0)}</strong> 
+              </p>
+              
             </div>
           </div>
         ))}
