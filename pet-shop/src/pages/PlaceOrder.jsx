@@ -101,6 +101,22 @@ const PlaceOrder = () => {
           }
           break;
 
+          case 'stripe':
+            const responseStripe = await axios.post(backendUrl + '/api/order/stripe', orderData, {
+              headers: {
+                Authorization: `Bearer ${token}`
+              }
+            });
+
+            if (responseStripe.data.success) {
+              const session_url = responseStripe.data.session_url; // виправлено тут
+              window.location.replace(session_url);
+            } else {
+              toast.error(responseStripe.data.message);
+            }
+          break;
+
+
         default:
           break;
       }
@@ -161,7 +177,7 @@ const PlaceOrder = () => {
                   <p></p>
                 </div>
                 <div onClick={()=>setMethod('razorpay')} className='flex items-center gap-3 border p-2 px-3 cursor-pointer text-lg'>
-                  <p className={`min-w-3.5 h-3.5 border rounded-full ${method === 'stripe' ? 'bg-orange-400' : ''}`}></p>
+                  <p className={`min-w-3.5 h-3.5 border rounded-full ${method === 'razorpay' ? 'bg-orange-400' : ''}`}></p>
                   <img className='w-28' src={assets.razorpay} alt="" />
                   <p></p>
                 </div>

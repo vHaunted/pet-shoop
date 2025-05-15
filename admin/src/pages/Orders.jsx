@@ -25,23 +25,32 @@ const Orders = ({token}) => {
         toast.error(response.data.message)
       }
 
-    } catch {
+    } catch(error) {
       toast.error(error.message)
     }
   }
 
   const statusHandler = async(event, orderId) => {
+    const newStatus = event.target.value
+
     try {
       const response = await axios.post(backendUrl + '/api/order/status', 
-        {orderId, status:event.target.value},
-        {headers: {token}})
+        { orderId, status: newStatus },
+        { headers: { token } }
+      )
 
-      if(response.data.success) {
-        await fetchAllOrders()
+      if (response.data.success) {
+        // оновлюємо локальний стан
+        setOrders(prevOrders => 
+          prevOrders.map(order => 
+            order._id === orderId ? { ...order, status: newStatus } : order
+          )
+        )
+        setTimeout(() => fetchAllOrders(), 500)
       }
     } catch (error) {
       console.log(error)
-      toast.error(response.data.message)
+      toast.error("Помилка при оновленні статусу")
     }
   }
 
