@@ -5,6 +5,10 @@ import category_dog from './images/categories/category-dog.jpg'
 import category_bird from './images/categories/category-bird.jpg'
 import category_hamster from './images/categories/category-hamster.jpg'
 import header from './images/header/cat-header-2-2.png'
+import cat_banner from './images/header/cat_banner.jpg'
+import dog_banner from './images/header/dog_banner.jpg'
+import parrot_banner from './images/header/parrot_banner.jpg'
+import dog_banner_2 from './images/header/dog_banner_2.jpg'
 
 import basket_icon from './images/icons-new/basket-shopping-simple.png'
 import cross_icon from './images/icons/close.png'
@@ -49,6 +53,10 @@ export const assets = {
     angle_right,
     angle_left,
     header,
+    cat_banner,
+    dog_banner,
+    dog_banner_2,
+    parrot_banner,
     twenty_four,
     paw,
     paw_heart,

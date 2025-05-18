@@ -16,60 +16,57 @@ const Add = ({token}) => {
   const [subCategory, setSubCategory] = useState("")
   const [brand, setBrand] = useState("")
   
-      const onSubmitHandler = async(e) => {
-        e.preventDefault();
-      
-        try {
-          const formData = new FormData()
-          formData.append("name", name)
-          formData.append("description", description)
-          formData.append("price", price)
-          formData.append("category", category)
-          formData.append("subCategory", subCategory)
-          formData.append("brand", brand)
-      
-          image1 && formData.append("image1", image1)
-          image2 && formData.append("image2", image2)
-          image3 && formData.append("image3", image3)
-          image4 && formData.append("image4", image4)
-      
-          const config = {
-            headers: {
-              'Authorization': `Bearer ${token}`,  
-              'Content-Type': 'multipart/form-data'
-            }
-          }
+  const onSubmitHandler = async (e) => {
+    e.preventDefault();
+    
+    if (!token) {
+      toast.error("Ви не авторизовані");
+      return;
+    }
 
-          if (!token) {
-            console.error("Токен не знайдено");
-            return;
-          }
+    try {
+      const formData = new FormData();
+      formData.append("name", name);
+      formData.append("description", description);
+      formData.append("price", price);
+      formData.append("category", category);
+      formData.append("subCategory", subCategory);
+      formData.append("brand", brand);
 
-          console.log("Поточний токен:", token);
-          const response = await axios.post(backendUrl + '/api/product/add', formData, config)
-          console.log(response.data);
+      // Додаємо тільки ті зображення, які були вибрані
+      if (image1) formData.append("image1", image1);
+      if (image2) formData.append("image2", image2);
+      if (image3) formData.append("image3", image3);
+      if (image4) formData.append("image4", image4);
 
-          if(response.data.success) {
-            toast.success(response.data.message)
-            setName('')
-            setDescription('')
-            setImage1(false)
-            setImage2(false)
-            setImage3(false)
-            setImage4(false)
-            setPrice('')
-            setCategory('')
-            setSubCategory('')
-            setBrand('')
-          } else {
-            console.log(error);
-            toast.error(response.message)
-          }
-
-        } catch (error) {
-          console.error("Помилка при відправці:", error.response?.data || error.message);
+      const response = await axios.post(`${backendUrl}/api/product/add`, formData, {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'multipart/form-data'
         }
+      });
+
+      if (response.data.success) {
+        toast.success(response.data.message);
+        // Скидання форми
+        setName('');
+        setDescription('');
+        setPrice('');
+        setCategory('');
+        setSubCategory('');
+        setBrand('');
+        setImage1(false);
+        setImage2(false);
+        setImage3(false);
+        setImage4(false);
+      } else {
+        toast.error(response.data.message || "Помилка при додаванні продукту");
       }
+    } catch (error) {
+      console.error("Помилка при відправці:", error);
+      toast.error(error.response?.data?.message || "Помилка сервера");
+    }
+  };
 
   return (
     <form onSubmit={onSubmitHandler}

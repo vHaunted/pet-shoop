@@ -11,7 +11,7 @@ const ProductItem = ({ name, _id, price, image }) => {
   };
 
   return (
-    <div className="product-item cursor-pointer" onClick={handleClick}>
+    <div className="product-item cursor-pointer transition-transform duration-300 hover:scale-105" onClick={handleClick}>
       <img 
         className='product_image'
         src={image || assets.placeholder} 

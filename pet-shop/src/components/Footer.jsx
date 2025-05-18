@@ -4,9 +4,13 @@ import { assets } from '../assets/assets'
 const Footer = () => {
   return (
     <footer  className="bg-no-repeat mt-20" 
-    style={{ backgroundImage: `url(${assets.back_1})`,
-        backgroundRepeat: 'revert',
-        }}>
+    // style={{ backgroundImage: `url(${assets.back_1})`,
+    //     backgroundRepeat: 'revert',
+    //     }}
+    style={{backgroundColor: '#fffde8',
+        marginTop: '100px'
+    }}
+    >
 
         {/* Content block */}
         <div className='flex flex-col sm:grid grid-cols-[2fr_1fr_1fr] gap-6 my-10 text-sm sm:px-[9vw]'>

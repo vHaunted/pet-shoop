@@ -6,9 +6,10 @@ const LatestCollection = () => {
     const {products} = useContext(ShopContext);
 
     const [LatestProducts, setLatestProducts] = useState([]);
+    
     useEffect(()=>{
         setLatestProducts(products.slice(0,10));
-    },[])
+    },[products])
 
     return (
         <div className=''>
@@ -23,10 +24,10 @@ const LatestCollection = () => {
             <div className='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 gap-y-6'>
             {
             LatestProducts.map((item, index) => (
-                <ProductItem 
+                <ProductItem
                     key={index} 
                     _id={item._id} 
-                    image={item.images?.[0]} // Змінити item.image на item.images?.[0]
+                    image={item.images?.[0]} 
                     name={item.name} 
                     price={item.price}
                     />
