@@ -41,7 +41,7 @@ const Add = ({token}) => {
 
       const response = await axios.post(`${backendUrl}/api/product/add`, formData, {
         headers: {
-          'Authorization': `Bearer ${token}`,
+          'token': token,
           'Content-Type': 'multipart/form-data'
         }
       });
