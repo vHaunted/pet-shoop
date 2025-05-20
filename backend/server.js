@@ -39,4 +39,8 @@ app.use((err, req, res, next) => {
     res.status(500).json({ error: 'Щось пішло не так!' });
 });
 
-app.listen(port, () => console.log(`Сервер працює на порті: ${port}`));
+if (process.env.NODE_ENV !== 'production') {
+  app.listen(port, () => console.log(`Сервер працює на порті: ${port}`));
+}
+
+export default app;
