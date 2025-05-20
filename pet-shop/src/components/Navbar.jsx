@@ -31,7 +31,10 @@ const Navbar = () => {
         </ul>
 
         <div className='flex items-center gap-6 cursor-pointer'>
-          <img onClick={() => setShowSearch(true)} className='w-8 cursor-pointer' src={assets.search_icon} alt="" />
+          <NavLink to='/collection' className='flex flex-col items-center gap-1'>
+            <img onClick={() => setShowSearch(true)} className='w-8 cursor-pointer' src={assets.search_icon} alt="" />
+          </NavLink>
+          
         
           <Link to='/cart' className='relative'>
             <img src={assets.basket_icon} alt="Кошик" className='w-8'/>
